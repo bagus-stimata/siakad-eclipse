@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <div xmlns:n="native" >
+        <hlayout>
+            <div hflex="1"/>
+            <div hflex="4" class="main-menu-inner" >
+                <n:ul class="ul-top-menu">   
+                    <n:li class="li-top-menu">
+                        <div children="@load(vm.listCmsUserMenu)" >
+                            <template name="children">                                
+                                <n:a href="#" class="top-menu-button"> <label id="@load(each.cmsUserMenuPK.idMenu)" onClick="@command('mainMenuClick', param1=self.id)" value="@load(each.cmsMenu.title)" class="top-menu-label"/></n:a>                                                               
+                            </template>
+                        </div>
+                    </n:li>
+                </n:ul>
+            </div>
+            <div hflex="1"/>
+        </hlayout>
+    </div>
+</zk>

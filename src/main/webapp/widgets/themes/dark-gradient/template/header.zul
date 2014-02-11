@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <vlayout  class="header-title">
+        <label sclass="header-title1" value="Sistem Informasi Akademik" />
+        <label sclass="header-title2" value="Universitas Widya Gama Malang" />
+    </vlayout>    
+    <!--### Gambar kita tumpuki dengan picture logo ###-->
+
+</zk>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk>
+ 
+    <session-config>
+        <session-timeout>3600010</session-timeout>
+        <timer-keep-alive>true</timer-keep-alive>
+        
+        <!--
+        <device-type>ajax</device-type>
+        <automatic-timeout>true</automatic-timeout>
+        <timeout-uri>/timeout.htm</timeout-uri>
+        -->
+        
+        <max-desktops-per-session>15</max-desktops-per-session>
+        <max-requests-per-session>10</max-requests-per-session>
+        <max-pushes-per-session>10</max-pushes-per-session>
+    </session-config>
+    
+</zk>

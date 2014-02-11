@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <div>
+        <vlayout xmlns:h="native">
+            <listbox style="border:none" model="@load(vm.listCmsUserSubmenu)">       
+                <listhead>
+                    <listheader><label value="@load(vm.cmsMenuActive)" style="font-weight:bold"/></listheader>
+                </listhead>
+                <template name="model" var="item">
+                    <listitem>
+                        <listcell><label id="@load(item.cmsSubmenu.idSubmenu)" onClick="@command('subMenuClick', param1=self.id)" value="@load(item.cmsSubmenu.title)" /></listcell>
+                    </listitem>
+                </template>
+            </listbox>
+
+        </vlayout>
+    </div>
+</zk>

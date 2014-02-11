@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <vlayout>
+        <label value="This blog is powered by ZK ${desktop.webApp.version}" />
+        <label value="Copyright © 2005-2011 Potix Corporation. All rights reserved." />
+    </vlayout>
+
+</zk>

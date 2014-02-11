@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <style>
+        .auxhead-1 {
+            font-family: 'Trebuchet MS',Trebuchet;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        /*Buat notifikasi message agar lebih kecil*/
+        .z-notification .z-notification-cl, 
+        .z-notification .z-notification-cnt {
+            height: 60px;
+            width: 140px;
+        }
+    </style>
+    <div apply="org.zkoss.bind.BindComposer" 
+        viewModel="@id('vm') @init('org.siakad.zkoss.krs.KrsJadwalBaru')" 
+        validationMessages="@id('vmsgs')"
+        form="@id('fx') @load(vm.tKrsJadwal) @save(vm.tKrsJadwal, before='simpan')
+            @validator('org.siakad.zkoss.krs.KrsJadwalBaru', tambahBaru=vm.addNew) " >
+                
+    <vlayout xmlns:n="native">
+        <div height="10px" />
+    <tabbox hflex="1" id="tb" mold="accordion" selectedIndex ="@bind(vm.selectedTab)">
+        <tabs >
+            <tab label=":: KRS JADWAL BARU" />
+            <tab label="::: Daftar JADWAL BARU" />
+        </tabs>
+        <tabpanels>
+            <tabpanel>
+                
+                <hlayout>
+                    <grid hflex="1">
+                        <auxhead>
+                            <auxheader colspan="3" align="center" ><label value="KRS JADWAL BARU" sclass="auxhead-1"/></auxheader>
+
+                        </auxhead>
+                        <columns>
+                            <column label="Title" width="15%" />
+                            <column label="" width="65%"/>
+                            <column label="" width="20%" />
+                        </columns>
+                        <rows>
+                            <row>                                
+                                <label value="ID" />
+                                <hlayout>
+                                   <intbox constraint="no empty" value="@bind(fx.idJadwal)" readonly="@load(not vm.addNew)" width="150px" mold="rounded" tabindex="1" /> 
+                                   <image src="@load(empty vmsgs['err_kode'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                                   <label class="error_teks" value="@load(vmsgs['err_kode'])" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>                                
+                                <label value="TAHUN AJARAN" />
+                                <hlayout>
+                                    <combobox autodrop="true" mold="rounded" width="100px" model="@load(vm.listTahunAjaran)" value="@load(fx.tahunAjaran)"         
+                                        selectedItem="@bind(fx.tahunAjaran)" onSelect="" >
+                                        <template name="model" var="item">
+                                            <comboitem label="@load(item)" />
+                                        </template>
+                                    </combobox>                                   
+                
+                                   <image src="@load(empty vmsgs['err_tahun_ajaran'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                                   <label class="error_teks" value="@load(vmsgs['err_tahun_ajaran'])" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+                            <row>                                
+                                <label value="SEMESTER GASAL/GENAP" />
+                                <hlayout>
+ 
+                <combobox autodrop="true" mold="rounded" width="100px" model="@load(vm.listGenapGasal)" value="@load(fx.smtGenapGasal eq false?'Genap':(fx.smtGenapGasal eq true ? 'Gasal':'') )"         
+                    selectedItem="@bind(fx.smtGenapGasal)" >
+                    <template name="model" var="item">
+                        <comboitem label="@load(item eq false? 'Genap':'Gasal')" />
+                    </template>
+                </combobox>       
+                
+                <image src="@load(empty vmsgs['err_smt_genap_gasal'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                <label class="error_teks" value="@load(vmsgs['err_smt_genap_gasal'])" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight" ></label>
+                                </div>
+                            </row>
+                            
+                            <row>                                
+                                <label value="Nama Kelas (Jadwal)" />
+                                <hlayout>
+                                   <textbox value="@bind(fx.namaKelas)" width="150px" mold="rounded" tabindex="1" /> 
+                                   <image src="@load(empty vmsgs['err_deskripsi'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                                   <label class="error_teks" value="@load(vmsgs['err_deskripsi'])" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+                            
+        <row>
+            <label value="Mata Kuliah" />
+            <hlayout>
+                <bandbox id="bb1"  readonly="true" mold="rounded" autodrop="true" width="150px" value="@load(fx.matkul.idMatkul)"  > 
+                    <bandpopup>
+                        <listbox width="500px" mold="paging" pagingPosition="bottom" pageSize="5" model="@load(vm.listMatkul)"
+                            selectedItem="@load(fx.matkul) @save(fx.matkul)"
+                            onSelect="bb1.value=self.selectedItem.label;bb1.close();" >
+                            <auxhead>
+                                <auxheader><div align="center"><bandbox value="@bind(vm.cariMatkulCmb1.idMatkul)" hflex="1" mold="rounded" onOK="@command('cariCmb1')" onOpen="@command('cariCmb1')" /></div></auxheader>
+                                <auxheader><div align="center"><bandbox value="@bind(vm.cariMatkulCmb1.namaMatkul)"  hflex="1" mold="rounded" onOK="@command('cariCmb1')" onOpen="@command('cariCmb1')" /></div></auxheader>
+                                <auxheader><div align="center">
+                                    <button label="" onClick="@command('reloadCmb1')" tabindex="8" image="/widgets/images/navigation/16x16/Sync.png"/>                                                                
+                                </div></auxheader>
+                                <auxheader />
+                            </auxhead>
+                            <listhead  sizable="true">
+                                <listheader width="20%" sort="auto(idMatkul)" >Kode</listheader>
+                                <listheader sort="auto(namaMatkul)" >Nama Matkul</listheader>
+                                <listheader width="10%" sort="auto(sks)" >SKS</listheader>
+                                <listheader width="10%" sort="auto(semester)" >SMT</listheader>
+                        </listhead>
+                            <template name="model" var="item">
+                                <listitem label="@load(item.idMatkul)">
+                                    <listcell ></listcell>
+                                    <listcell ><label value="@load(item.namaMatkul)" /></listcell>
+                                    <listcell ><label value="@load(item.sks)" /></listcell>
+                                    <listcell ><label value="@load(item.semester)" /></listcell>
+                                </listitem>
+                            </template>   
+                        </listbox>
+                    </bandpopup>
+                </bandbox>                 
+                <image src="@load(empty vmsgs['err_matkul'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                <label class="error_teks" value="@load(vmsgs['err_matkul'])" />
+            </hlayout>
+            <div>
+                <label sclass="hightlight"></label>
+            </div>
+        </row>
+
+                            
+                            
+                            <row>
+                                <label value="DOSEN (ID Internal)" />
+                                <hlayout>
+                                    
+                <bandbox id="bb2" mold="rounded" autodrop="true" width="150px" value="@load(fx.pegawai.idPegawai)"  > 
+                    <bandpopup>
+                        <listbox width="550px" mold="paging" pagingPosition="bottom" pageSize="5" model="@load(vm.listPegawai)"
+                            selectedItem="@load(fx.pegawai) @save(fx.pegawai)"
+                            onSelect="bb2.value=self.selectedItem.label;bb2.close();" >
+                            <auxhead>
+                                <auxheader><div align="center"><bandbox value="@bind(vm.cariPegawaiCmb2.idPegawai)" hflex="1" mold="rounded" onOK="@command('cariCmb2')" onOpen="@command('cariCmb2')" /></div></auxheader>
+                                <auxheader><div align="center"><bandbox value="@bind(vm.cariPegawaiCmb2.namaPegawai)"  hflex="1" mold="rounded" onOK="@command('cariCmb2')" onOpen="@command('cariCmb2')" /></div></auxheader>
+                                <auxheader><div align="center">
+                                    <button label="" onClick="@command('reloadCmb2')" tabindex="8" image="/widgets/images/navigation/16x16/Sync.png"/>                                                                
+                                </div></auxheader>
+                            </auxhead>
+                            <listhead  sizable="true">
+                                <listheader sort="auto(idPegawai)" >Kode</listheader>
+                                <listheader sort="auto(namaPegawai)" >Nama Matkul</listheader>
+                                <listheader sort="auto(prodi.namaProdi)" >SKS</listheader>
+                        </listhead>
+                            <template name="model" var="item">
+                                <listitem label="@load(item.idPegawai)">
+                                    <listcell ></listcell>
+                                    <listcell ><label value="@load(item.namaPegawai)" /></listcell>
+                                    <listcell ><label value="@load(item.prodi.namaProdi)" /></listcell>
+                                </listitem>
+                            </template>   
+                        </listbox>
+                    </bandpopup>
+                </bandbox>                 
+                <image src="@load(empty vmsgs['err_dosen'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                <label class="error_teks" value="@load(vmsgs['err_dosen'])" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+                            
+                            
+                            
+                            
+                <row>                                
+                    <label value="Kelas (Ruang Kuliah)" />
+                    <hlayout>
+                        <combobox autodrop="true" mold="rounded" width="150px" model="@load(vm.listKuliahRuang)" value="@load(fx.kuliahRuang.idRuang)"         
+                            selectedItem="@bind(fx.kuliahRuang)"  >
+                            <template name="model" var="item">
+                                <comboitem label="@load(item.idRuang)" description="@load(item.deskripsi)"  />
+                            </template>
+                        </combobox>                                   
+                        <image src="@load(empty vmsgs['err_ruang'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                        <label class="error_teks" value="@load(vmsgs['err_ruang'])" />
+                    </hlayout>
+                    <div>
+                        <label sclass="hightlight"></label>
+                    </div>
+                </row>
+                <row>                                
+                    <label value="Kapasistas Kelas" />
+                    <hlayout>
+                        <intbox id="idruang" constraint="no empty" value="@bind(fx.kapasitas)"  width="150px" mold="rounded" tabindex="1" />                                    
+                        <image src="@load(empty vmsgs['err_kapasitas'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                        <label class="error_teks" value="@load(vmsgs['err_kapasitas'])" />
+                    </hlayout>
+                    <div>
+                        <label sclass="hightlight"></label>
+                    </div>
+                </row>
+                            
+                            
+                            <row>                                
+                                <label value="Hari" />
+                                <hlayout>
+                <combobox autodrop="true" mold="rounded" width="100px" model="@load(vm.listHari)"       
+                    selectedIndex="@bind(fx.hari)" >
+                    <template name="model" var="item">
+                        <comboitem label="@load(item)" />
+                    </template>
+                </combobox>                                   
+                <image src="@load(empty vmsgs['err_hari'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                <label class="error_teks" value="@load(vmsgs['err_hari'])" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+                            
+                            
+                            <row>                                
+                                <label value="Jam Mulai" />
+                                <hlayout>
+                                    <combobox autodrop="true" mold="rounded" width="100px" model="@load(vm.listKuliahJam)" value="@load(fx.jamMulai.idJam)"         
+                                        selectedItem="@bind(fx.jamMulai)" >
+                                        <template name="model" var="item">
+                                            <comboitem label="@load(item.idJam)" description="@load(item.deskripsi)" />
+                                        </template>
+                                    </combobox>                                   
+                                    <image src="@load(empty vmsgs['err_jam_mulai'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                                    <label class="error_teks" value="@load(vmsgs['err_jam_mulai'])" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+                            <row>                                
+                                <label value="Jam Selesai" />
+                                <hlayout>
+                <combobox autodrop="true" mold="rounded" width="100px" model="@load(vm.listKuliahJam)" value="@load(fx.jamSelesai.idJam)"         
+                    selectedItem="@bind(fx.jamSelesai)" >
+                    <template name="model" var="item">
+                        <comboitem label="@load(item.idJam)" description="@load(item.deskripsi)" />
+                    </template>
+                </combobox>                                   
+                <image src="@load(empty vmsgs['err_jam_selesai'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                <label class="error_teks" value="@load(vmsgs['err_jam_selesai'])" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                        </rows>
+                        
+                        <foot>
+                            <footer span="3" align="center">
+                                <div>
+                                    <button label="Add New"  onClick="@command('baru')" tabindex="4" image="/widgets/images/navigation/16x16/New-document.png" />
+                                    <button label="Delete" onClick="@command('hapus', parDummy='')" tabindex="5" image="/widgets/images/navigation/16x16/Erase.png"/>                            
+                                    <label value=" | "></label>
+                                    <button label="Save or Update" onClick="@command('simpan')" tabindex="6" image="/widgets/images/navigation/16x16/Save.png"/>                            
+                                    <button label="Cancel" onClick="@command('batal')" tabindex="7" image="/widgets/images/navigation/16x16/Redo.png"/>                            
+                                    <label value=" | "></label>
+                                    <button label="Close" onClick="@command('selesai')" tabindex="8" image="/widgets/images/navigation/16x16/Exit.png"/>                            
+                                </div>                                
+                            </footer>
+                        </foot>
+                        
+                    </grid>   
+                </hlayout>
+             
+                
+            </tabpanel>
+            <tabpanel >
+                <hlayout>
+                    
+             
+                    <listbox  hflex="1" model="@load(vm.listKrsJadwal)"  
+                        selectedItem="@load(vm.tKrsJadwal) @save(vm.tKrsJadwal)" onSelect="@command('selectList')"
+                        mold="paging" pageSize="9" pagingPosition="top">
+                            <auxhead>
+                                <auxheader></auxheader>
+                                <auxheader><div align="center"><bandbox value="" hflex="1" mold="rounded" onOK="@command('cari')" onOpen="@command('cari')" /></div></auxheader>
+                                <auxheader><div align="center"><bandbox value=""  hflex="1" mold="rounded" onOK="@command('cari')" onOpen="@command('cari')" /></div></auxheader>
+                                <auxheader><div align="center"><bandbox value="" hflex="1" mold="rounded" onOK="@command('cari')" onOpen="@command('cari')" /></div></auxheader>
+                                <auxheader></auxheader>
+                                <auxheader></auxheader>
+                                <auxheader></auxheader>
+                                <auxheader></auxheader>
+                                <auxheader></auxheader>
+                                <auxheader></auxheader>
+                                <auxheader></auxheader>
+                                <auxheader><div align="center">
+                                    <button label="" onClick="@command('reload')" tabindex="8" image="/widgets/images/navigation/16x16/Sync.png"/>                                                                
+                                </div></auxheader>
+                            </auxhead>
+                            <listhead sizable="true">                                
+                                <listheader align="center" sort="auto(idJadwal)" width="7%"><div align="center">ID</div></listheader>
+                                <listheader align="center" sort="auto(tahunAjaran)" width="6%"><div align="center">Thn Ajaran</div></listheader>
+                                <listheader align="center" sort="auto(matkul.namaMatkul)"  width="20%" ><div align="center">Mata Kuliah</div></listheader>
+                                <listheader align="center" sort="auto(smtGenapGasal)"  width="6%" ><div align="center">SMT</div></listheader>
+                                <listheader align="center" sort="auto(pegawai.idPegawai)"  width="6%" ><div align="center">DSN</div></listheader>
+                                <listheader align="center" sort="auto(namaKelas)" width="10%"><div align="center">Kelas</div></listheader>
+                                <listheader align="center" sort="auto(kapasitas)" width="5%" ><div align="center">Kapasitas</div></listheader>
+                                <listheader align="center" sort="auto(terisi)"  width="5%" ><div align="center">Terisi</div></listheader>
+                                <listheader align="center" sort="auto(hari)"  width="7%" ><div align="center">Hari</div></listheader>
+                                <listheader align="center"  width="6%" ><div align="center">Jam Ke</div></listheader>
+                                <listheader align="center"  width="10%" ><div align="center">Ruang</div></listheader>
+                                <listheader  align="center" >
+                                    <button label="Add" onClick="@command('baru')" image="/widgets/images/navigation/14x14/Create.png"/> 
+                                </listheader>
+                            </listhead>
+                            <template name="model" var="item">
+                                <listitem disabled="@load(vm.addNew)">
+                                    <listcell ><label value="@load(item.idJadwal)" /></listcell>
+                                    <listcell ><label value="@load(item.tahunAjaran)" /></listcell>
+                                    <listcell ><label value="@load(item.matkul.namaMatkul)" /></listcell>
+                                    <listcell ><label value="@load(item.smtGenapGasal eq false?'Genap':'Gasal')" /></listcell>
+                                    <listcell ><label value="@load(item.pegawai.idPegawai)" /></listcell>
+                                    <listcell ><label value="@load(item.namaKelas)" /></listcell>
+                                    <listcell ><label value="@load(item.kapasitas)" /></listcell>
+                                    <listcell ><label value="@load(item.terisi)" /></listcell>
+                                    <listcell >
+                                        <label value="@load(item.hari eq 1? 'Minggu': item.hari eq 2 ? 'Senin': item.hari eq 3? 'Selasa':item.hari eq 4? 'Rabo': item.hari eq 5? 'Kamis':item.hari eq 6? 'Jumat': item.hari eq 7? 'Sabtu':'')" />
+                                    </listcell>
+                                    <listcell >
+                                        <label value="@load(item.jamMulai.idJam)" />
+                                        <label value=" - " />
+                                        <label value="@load(item.jamSelesai.idJam)" />
+                                    </listcell>
+                                    <listcell ><label value="@load(item.kuliahRuang.deskripsi)" /></listcell>
+                                    <listcell>                                        
+                                        <button onClick="@command('ubahList', parameter1=item)"
+                                            image="/widgets/images/navigation/14x14/Pencil.png"/>
+                                        <button onClick="@command('hapus', parameter1=item)" 
+                                            image="/widgets/images/navigation/14x14/Erase.png"/>
+                                        </listcell>
+                                </listitem>
+                            </template>
+                    </listbox>
+
+               
+                </hlayout>
+            </tabpanel>
+        </tabpanels>
+    </tabbox>
+    
+    
+    </vlayout>
+
+
+
+</div>
+</zk>

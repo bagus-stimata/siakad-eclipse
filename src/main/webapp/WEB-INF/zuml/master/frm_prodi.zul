@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <style>
+        .auxhead-1 {
+            font-family: 'Trebuchet MS',Trebuchet;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        /*Buat notifikasi message agar lebih kecil*/
+        .z-notification .z-notification-cl, 
+        .z-notification .z-notification-cnt {
+            height: 60px;
+            width: 140px;
+        }
+    </style>
+    <div apply="org.zkoss.bind.BindComposer" 
+        viewModel="@id('vm') @init('org.siakad.zkoss.master.Prodi')" 
+        validationMessages="@id('vmsgs')" 
+        form="@id('fx') @load(vm.prodi) @save(vm.prodi, before='simpan')
+            @validator('org.siakad.zkoss.master.Prodi', tambahBaru=vm.addNew) " >
+        <vlayout >
+            <!--Ngakali agar menurun dikit dan judulnya tetap kelihatan-->
+            <div height="10px" />
+
+            
+            <hlayout>
+                <grid hflex="1">
+                    <auxhead>
+                        <auxheader colspan="3" align="center" ><label value="Program Studi" sclass="auxhead-1"/></auxheader>
+
+                    </auxhead>
+                    <columns>
+                        <column label=":::" width="15%" />
+                        <column label="" width="65%"/>
+                        <column label="" width="20%" />
+                    </columns>
+                    <rows>
+                        <row>
+                            <label value="Kode Prodi" />
+                            <hlayout>
+                                <textbox value="@bind(fx.idProdi)" readonly="@load(not vm.addNew)" width="150px" mold="rounded" tabindex="1" /> 
+                                   <image src="@load(empty vmsgs['err_kode'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                                   <label class="error_teks" value="@load(vmsgs['err_kode'])" />
+                            </hlayout>
+                            <div>
+                                <label sclass="hightlight"></label>
+                            </div>
+                        </row>
+
+                        <row>
+                            <label value="Deskripsi" />
+                            <hlayout>
+                                <textbox value="@bind(fx.namaProdi)" width="150px" mold="rounded" tabindex="2" /> 
+                                  <image src="@load(empty vmsgs['err_deskripsi'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                                  <label class="error_teks" value="@load(vmsgs['err_deskripsi'])" />
+                            </hlayout>
+                            <div>
+                                <label sclass="hightlight"></label>
+                            </div>
+                        </row>
+
+                        <row>
+                            <label value="Jurusan" />
+                            <hlayout>
+         <!-- Ingat value harus pake @load bukan @bind karena pake selectedItem untuk merubahnya -->
+                <combobox autodrop="true" mold="rounded" width="150px" model="@load(vm.listJurusan)" value="@load(fx.jurusan.idJurusan)"         
+                    selectedItem="@bind(fx.jurusan)" >
+                    <template name="model" var="item">
+                        <comboitem label="@load(item.idJurusan)" description="@load(item.namaJurusan)" />
+                    </template>
+                </combobox>
+                <image src="@load(empty vmsgs['err_combo1'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                <label class="error_teks" value="@load(vmsgs['err_combo1'])" />
+                       </hlayout>
+                            <div>
+                                <label sclass="hightlight"></label>
+                            </div>
+                        </row>
+                    </rows>
+                    <foot>
+                        <footer span="3" align="center">
+                            <div>
+                                <button label="Add New" onClick="@command('baru')" tabindex="4" image="/widgets/images/navigation/16x16/New-document.png"/>
+                                <button label="Delete" onClick="@command('hapus')" tabindex="5" image="/widgets/images/navigation/16x16/Erase.png"/>                            
+                                 <label value=" | "></label>
+                                <button label="Save or Update" onClick="@command('simpan')" tabindex="6" image="/widgets/images/navigation/16x16/Save.png"/>                            
+                                <button label="Cancel" onClick="@command('batal')" tabindex="7" image="/widgets/images/navigation/16x16/Redo.png"/>                            
+                            </div>                            
+                        </footer>
+                    </foot>
+                </grid>   
+            </hlayout>
+
+            <hlayout>
+                <listbox hflex="1" model="@load(vm.listProdi)"  
+                    selectedItem="@load(vm.prodi) @save(vm.prodi)" onSelect="@command('selectList')"
+                    mold="paging" pageSize="4" pagingPosition="top" >
+                        <listhead sizable="true">
+                            <listheader sort="auto(idProdi)">Kode Prodi</listheader>
+                            <listheader sort="auto(namaProdi)">Program Studi</listheader>
+                            <listheader sort="auto(jurusan.namaJurusan)">Nama Jurusan</listheader>
+                        </listhead>
+                        <template name="model" var="item">
+                            <listitem disabled="@load(vm.addNew)">
+                                <listcell ><label value="@load(item.idProdi)" /></listcell>
+                                <listcell><label value="@load(item.namaProdi)" /></listcell>
+                                <listcell><label value="@load(item.jurusan.namaJurusan)" /></listcell>
+                            </listitem>
+                        </template>
+                </listbox>
+                    
+            </hlayout>
+            
+        </vlayout>
+
+    </div>
+</zk>

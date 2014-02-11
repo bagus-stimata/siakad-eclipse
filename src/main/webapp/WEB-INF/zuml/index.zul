@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <!--
+    <include src="/widgets/themes/styles/test/test-style.zul" />
+   -->
+  <!--
+    <style src="/widgets/themes/styles/test/test-style.css" />
+  -->
+    <include src="/widgets/themes/styles/test/test-style.zul" />      
+  
+    <div>
+        HELLO PAK DHE
+    </div>
+</zk>

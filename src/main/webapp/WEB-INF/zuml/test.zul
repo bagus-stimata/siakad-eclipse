@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <div apply="org.zkoss.bind.BindComposer" 
+    viewModel="@id('vm') @init('org.siakad.zkoss.cms.MainMenu') ">
+        
+<toolbar model="@load(vm.listCmsMenu)" >
+    <a><label value="hehehe" /></a>
+    <a><label value="Secara" /></a>
+    <a><label value="Aduh" /></a>
+</toolbar>
+        <toolbar>
+	    	<toolbarbutton label=""/>
+	    	<toolbarbutton label=""/>
+          </toolbar> 
+          
+
+    
+  <rows>
+    <row></row>
+			
+  <rows>  
+    
+    
+    
+    
+    <div xmlns:n="native" >
+        <n:ul class="ul-top-menu">
+            <zscript>
+                
+            </zscript>
+            <div forEach="${buah}">
+                <n:li class="li-top-menu">
+                    <n:a href="#" class="top-menu-button"> <label onClick='alert("hehehe")' value="${each}" class="top-menu-label"/></n:a>
+                </n:li>
+            </div>
+        </n:ul>
+    </div>
+
+    </div>
+</zk>

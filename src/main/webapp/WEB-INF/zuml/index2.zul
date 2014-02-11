@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <div xmlns:n="native">
+        <n:h1>Coba Judulnya apa tidak</n:h1>
+        <grid>
+            <columns>
+                <column>Nama</column>
+                <column>Alamat</column>
+            </columns>
+            <rows>
+                <row>
+                    <label value="Bagus Winarno"/><label value="Kauman"/>
+                 </row>
+            </rows>
+        </grid>
+    </div>
+</zk>

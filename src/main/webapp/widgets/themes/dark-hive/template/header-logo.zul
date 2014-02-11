@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <div xmlns:n="native" >
+        <hlayout >
+            <div hflex="1" class="header-logo-div-1">
+                <image class="header-logo-pic-1" src="/widgets/images/logo-default/tut_wuri_handayani.png"  />
+            </div>
+            <div hflex="2" class="header-logo-inner" >
+            </div>
+            <div hflex="1" class="header-logo-div-2">
+                <image class="header-logo-pic-2" src="/widgets/images/logo-default/unmer_pasuruan.jpg"  />           
+            </div>
+        </hlayout>
+    </div>
+
+</zk>

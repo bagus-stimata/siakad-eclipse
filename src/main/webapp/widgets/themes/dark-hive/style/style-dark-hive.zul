@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+   <style>
+    
+        .top-bar{
+                background-color: #151515;
+                color: white;
+                text-align:right;
+                height: 25px;
+                /*buat shadow*/
+                box-shadow:2px 3px 1px #888888;
+                -moz-box-shadow:2px 3px 1px #888888;
+
+        }  
+        
+        ul.ul-top-bar {
+            list-style-type:none;
+            margin:0;
+            padding:0;
+            padding-top:0px;
+            padding-bottom:0px;
+        }
+        li.li-top-bar{
+            display:inline;
+        }
+        a.top-bar-button:link, a.top-bar-button:visited{
+            font-weight:normal;
+            color:#FFFFFF;
+            background-color: #151515;
+            text-align:center;
+            padding:4px;
+            text-decoration:none;
+            text-transform:uppercase;
+        }
+        a.top-bar-button:hover, a.top-bar-button:active {
+            background-color: blue;
+            /*border: 1px solid white; */
+        }
+        .top-bar-label {
+            font-size:10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .top-bar-popup {
+            border-radius: 5px;
+            -moz-border-radius: 5px;            
+        }
+
+      /*### Mulai dari header, content left bar dan content itu sendiri, dan footer ###*/
+      .fixed-center{
+        border: none;
+        margin-top: 0px;
+      }
+      /**### Bagian HEADER ###*/
+      .header{
+            margin-top: 5px;
+      }
+      
+      .header-title {
+            /*## Karena vflex height menyesuaikan maka kita tidak pakai ##*/
+            background-image: url(${c:encodeURL('/widgets/themes/dark-hive/images/ui-bg_loop_25_000000_21x21.png')});
+            min-height: 80px;
+            
+            /*Buat supaya corner header menjadi rounded*/
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+
+            color: white;
+            text-align: center;        
+            
+        }
+        /*Tulisannya*/
+        .header-title1 {
+            color: white;
+            font-family: Tahoma;
+            font-size: 20px;
+            font-weight: bold;
+            
+            text-shadow: 1px 1px 1px yellow;
+            -moz-text-shadow: 1px 1px 1px yellow;
+        }       
+        .header-title2 {
+            color: #efefef;
+            font-family: Georgia;
+            font-size: 16px;
+            font-style: italic;
+            text-shadow: 1px 1px 1px yellow;
+            -moz-text-shadow: 1px 1px 1px yellow;
+        }
+       
+        .header-logo-hlayout-1{
+            position:absolute;
+            top: 0px;
+            /*left: 0px;*/
+            z-index: 1; 
+            
+            margin-left: 20px;
+        }
+        .header-logo-hlayout-2{
+            position:absolute;
+            top: 0px;
+            left: 900px;*/
+            z-index: 1; 
+            
+            margin-left: 20px;
+        }
+        /*#### HEADER LOGO ##*/
+        .header-logo {
+            /* Ini harus di set-sesuai ribet detail */
+            position:absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 1;
+            /*Penting banget ni Jangan pake min-height*/
+            width: 100%;
+            min-height: 50px;
+            
+        }
+        .header-logo-inner {       
+            margin-top:7px;
+            margin-bottom:7px;
+            
+            text-align: center;                        
+            
+        }
+        /*Set header logo lebih detail*/
+        .header-logo-div-1 {
+            text-align: left;
+        }       
+        .header-logo-pic-1 {
+            height: 70px;
+            border: 2px solid white;
+
+            /*Buat Shadow*/
+            box-shadow:2px 3px 2px #888888;
+            -moz-box-shadow:2px 3px 2px #888888;
+            /*buat round corder*/
+            border-radius: 7px;
+            -moz-border-radius: 7px;
+            
+            
+            margin-left: 20px; /*Biar agak masuk kedalam*/
+            margin-bottom:4px; /*Supaya shadow bawah kelihatan*/
+        }
+        .header-logo-div-2 {
+            text-align: right;     
+        }
+        .header-logo-pic-2{
+            height: 70px;
+            border: 2px solid white;
+
+            /*Buat Shadow*/
+            box-shadow:2px 3px 2px #888888;
+            -moz-box-shadow:2px 3px 2px #888888;
+            /*buat round corder*/
+            border-radius: 7px;
+            -moz-border-radius: 7px;
+            
+            margin-right: 20px; /*Biar agak masuk kedalam*/
+            margin-bottom:4px; /*Supaya shadow bawah kelihatan*/
+        }       
+        
+        /*#### MAIN MENU ####*/
+        .main-menu{
+            /* Ini harus di set-sesuai ribet detail */
+            position:absolute;
+            top: 60px;
+            left: 0px;
+            z-index: 1;
+            /*Penting banget ni Jangan pake min-height*/
+            width: 100%;
+            min-height: 25px;
+            
+        }
+        .main-menu-inner {       
+            margin-top:7px;
+            margin-bottom:7px;
+            border: 2px solid white;
+            
+            background-color: #151515;
+            text-align: center;            
+
+            /*Buat Shadow*/
+            box-shadow:5px 7px 3px #888888;
+            -moz-box-shadow:5px 7px 3px #888888;
+            /*Buat Rounded*/
+            border-radius: 5px;
+            -mox-border-radius: 5px;
+                        
+            color: white;
+            font-size: 16px
+            
+        }
+        .menu-teks, .top-menu-label {
+            font-size:12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .menu-vertical-separator {
+            font-size: 14px;
+            color: grey;
+        }
+        /**## Mengatur tampilan menu ##**/
+        ul.ul-top-menu {
+            list-style-type:none;
+            margin:0;
+            padding:0;
+            /*## Hubungan dengan tebal box menu diatas margin-top dan margin-bottom ##*/
+            padding-top:5px;
+            padding-bottom:5px;
+        }
+        li.li-top-menu{
+            display:inline;
+        }
+        a.top-menu-button:link, a.top-menu-button:visited{
+            font-weight:normal;
+            color:#FFFFFF;
+            background-color: #151515;
+            text-align:center;
+            padding:5px;
+            text-decoration:none;
+            text-transform:uppercase;
+        }
+        a.top-menu-button:hover, a.top-menu-button:active {
+            background-color: #545454;
+            /*border: 1px solid white; */
+        }
+
+       /**### Bagian LEFT-SIDE-MENU ###*/      
+        .center-left {
+            margin-top: 5px;
+            margin-bottom:3px;
+            
+            border-right:1px solid #CFCFCF;
+            border-top:1px solid #CFCFCF;
+            color: #6f6f6f;
+            /* format isi */
+            min-height: 475px;
+        }        
+        .center-left-inner {
+            border-right: 1px solid #CFCFCF;
+            color: #6f6f6f;
+            
+        }
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .sidebar-bar {
+            border-top: 1px dotted gray;
+            margin-right: 5px;
+            margin-top: 15px;
+        }
+        
+        /**### Bagian CONTENT ###*/
+        .center-right {
+            margin-top: 5px;
+            margin-bottom:3px;
+            border:1px solid #CFCFCF;
+            color: #6f6f6f;
+            /* format isi */
+            
+        }
+        
+        .content-date {
+            color: #999999;
+            font-family: 'Trebuchet MS',Trebuchet;
+            font-size: 12px;
+            letter-spacing: 0.2em;
+        }
+        .content-title {
+            color: #015182;
+            font-family: 'Trebuchet MS',Trebuchet;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 30px;
+            text-decoration: none;
+        }
+        .content-title:hover {
+            text-decoration: underline
+        }
+        .content-desc {
+            color: gray;
+            font-family: 'Trebuchet MS',Trebuchet;
+            font-size: 14px;
+            white-space: normal;
+        }
+        .content-more {
+            color: gray;
+            font-family: 'Trebuchet MS',Trebuchet;
+            font-size: 12px;
+            font-style: italic;
+            font-weight: bold;
+        }
+        
+        /**### Bagian FOOTER ###*/
+        .footer {
+            /*## Height diatur oleh vflex ##*/
+        
+            /*background-color: #165379;*/
+            background-image: url(${c:encodeURL('/widgets/themes/dark-hive/images/ui-bg_loop_25_000000_21x21.png')});
+            border-top : 1px solid gray;
+            color: white;
+            text-align: center;
+            
+            /*buat supaya footer jadi rounded corner*/
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            
+        }
+        
+        /*BAGIAN SETTING TAMPILAN UMUM*/
+        .error_teks{
+            color:red;
+        }
+    </style>
+
+</zk>

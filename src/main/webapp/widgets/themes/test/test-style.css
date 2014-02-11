@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <style>
+        body {
+          background-image:  url(${c:encodeURL('/widgets/themes/styles/test/images/ui-bg_loop_25_000000_21x21.png')});
+        }
+    </style>
+</zk>

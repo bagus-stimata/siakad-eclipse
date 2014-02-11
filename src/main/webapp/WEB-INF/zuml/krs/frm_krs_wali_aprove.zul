@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <style>
+        .auxhead-1 {
+            font-family: 'Trebuchet MS',Trebuchet;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        /*Buat notifikasi message agar lebih kecil*/
+        .z-notification .z-notification-cl, 
+        .z-notification .z-notification-cnt {
+            height: 60px;
+            width: 140px;
+         }   
+    </style>
+    
+    <div xmlns:n="native" apply="org.zkoss.bind.BindComposer" 
+        viewModel="@id('vm') @init('org.siakad.zkoss.krs.KrsWaliAprove')"  >
+    <vlayout>
+            <!--Ngakali agar menurun dikit dan judulnya tetap kelihatan-->
+            <div height="10px" />
+                <groupbox hflex="1" mold="3d" closable="false">
+                    <caption label=":: KRITERIA AKADEMIK DAN MAHASISWA" />
+                    <vlayout>
+                        <grid>
+                            <columns>
+                                <column width="20%"/>
+                                <column width="20%"/>
+                                <column width="20%"/>
+                                <column />                            
+                            </columns>
+                            <rows>
+                                <row>
+                                    <div>
+                                        <label value="TAHUN AJARAN"  />
+                                        <combobox width="150px"  model="@load(vm.listTahunAjaran)" selectedItem="@bind(vm.tahunAkademik)">
+                                            <template name="model">
+                                                <comboitem label="@load(each)"/>
+                                            </template>
+                                        </combobox>
+                                    </div>
+                                    <div>
+                                        <label value="GENAP/GASAL" />
+                                        <combobox width="150px" model="@load(vm.listGenapGasal)" selectedIndex="@bind(vm.semesterGenapGanjil)">    
+                                            <template name="model">
+                                                <comboitem label="@load(each)"/>
+                                            </template>
+                                        </combobox>                                
+                                    </div>
+                                    <div>
+                                        <label value="BELUM APROVE" />                                
+                                        <combobox width="150px" model="@load(vm.listBelumSudah)" selectedIndex="@bind(vm.belumSudahApprove)">
+                                            <template name="model">
+                                                <comboitem label="@load(each)"/>
+                                            </template>
+                                        </combobox>   
+                                    </div>
+                                    <div>
+                                        <label value="TOLAK/SETUJU" />
+                                        <combobox width="150px" model="@load(vm.listTolakSetuju)" selectedIndex="@bind(vm.tolakSetuju)">
+                                            <template name="model">
+                                                <comboitem label="@load(each)"/>
+                                            </template>    
+                                        </combobox>                                
+                                    </div>
+                                </row> 
+                            </rows>
+                        </grid>
+                        <listbox  hflex="1" model="@load(vm.listMhs)"  
+                            selectedItem="@load(vm.mhs) @save(vm.mhs)" onSelect="@command('selectList')"
+                            mold="paging" pageSize="9" pagingPosition="top">
+                                <auxhead>
+                                    <auxheader><div align="center"><bandbox value="@bind(vm.cariMhs.idMhs)" hflex="1" mold="rounded" onOK="@command('cari')" onOpen="@command('cari')" /></div></auxheader>
+                                    <auxheader><div align="center"><bandbox value="@bind(vm.cariMhs.namaMhs)"  hflex="1" mold="rounded" onOK="@command('cari')" onOpen="@command('cari')" /></div></auxheader>
+                                    <auxheader></auxheader>
+                                    <auxheader><div align="center"><bandbox value="@bind(vm.cariProdi.idProdi)" hflex="1" mold="rounded" onOK="@command('cari')" onOpen="@command('cari')" /></div></auxheader>
+                                    <auxheader><div align="center"><bandbox value="@bind(vm.cariMhs.angkatan)" hflex="1" mold="rounded" onOK="@command('cari')" onOpen="@command('cari')" /></div></auxheader>
+                                    <auxheader><div align="center">
+                                        <button label="" onClick="@command('reload')" tabindex="8" image="/widgets/images/navigation/16x16/Sync.png"/>                                                                
+                                    </div></auxheader>
+                                </auxhead>
+                                <listhead sizable="true">                                
+                                    <listheader sort="auto(idMhs)" width="15%"><div align="center">NIM</div></listheader>
+                                    <listheader sort="auto(namaMhs)" width="35%" ><div align="center">NAMA</div></listheader>
+                                    <listheader sort="auto(statusAktif)" width="7%" ><div align="center">Aktif</div></listheader>
+                                    <listheader sort="auto(prodi.idProdi)" width="25%" ><div align="center">Prodi</div></listheader>
+                                    <listheader sort="auto(angkatan)" width="15%" ><div align="center">Angkatan</div></listheader>
+                                </listhead>
+                                <template name="model" var="item">
+                                    <listitem disabled="@load(vm.addNew)">
+                                        <listcell ><label value="@load(item.idMhs)" /></listcell>
+                                        <listcell>
+                                                <image src="@load(not empty item.gender ? (item.gender ? vm.imgMaleUrl: vm.imgFemaleUrl):vm.imgFemaleUrl)"/>
+                                                <label value="@load(item.namaMhs)" />
+                                        </listcell>
+                                        <listcell>
+                                            <image src="@load(item.statusAktif ? vm.imgAktifUrl: vm.imgNonAktifUrl)"/>
+                                        </listcell>
+                                        <listcell >
+                                            <label value="@load(item.prodi.idProdi)" />
+                                            <label value=" - " />
+                                            <label value="@load(item.prodi.namaProdi)" />
+                                        </listcell>
+                                        <listcell ><label value="@load(item.angkatan)" /></listcell>
+                                    </listitem>
+                                </template>
+                        </listbox>
+                    </vlayout>
+            </groupbox>
+            
+            <groupbox hflex="1" mold="3d">
+                <caption label="::MAHASISWA" />
+                <hlayout visible="@load(vm.granted)">
+                    <grid>
+                        <columns>
+                            <column></column>
+                            <column></column>
+                            <column></column>
+                            <column></column>
+                            <column></column>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label>NIM</label>
+                                <label value="@load(vm.mhs.idMhs)" />
+                                <div>
+                                    <label>Semester : </label>
+                                    <label value="@load(vm.semesterGenapGanjil eq 0? 'GENAP**':'GANJIL*')" />
+                                </div>
+                                <div>
+                                    <label>IP Semeter Lalu : </label>
+                                    <label value="@load(vm.mhs.ipSemesterLalu)" />
+                                 </div>
+                                 <div>
+                                    <label>Max SKS : </label>
+                                    <label value="@load(vm.maxSks)" />                                   
+                                </div>
+                            </row>
+                            <row>
+                                <label>Nama Mahasiswa</label>
+                                <label value="@load(vm.mhs.namaMhs)" />
+                                <label></label>
+                                <div>
+                                    <label>Status Aktif</label>
+                                    <image src="@load(vm.mhs.krsOpened eq true ? vm.imgDisetujuiUrl:vm.imgDitolakUrl))"/>
+                                    <image src="@load(vm.mhs.krsOpened eq true ? vm.imgDisetujuiUrl:vm.imgDitolakUrl))"/>
+                                </div>                     
+                                <div>
+                                    <label>Bebas BAU</label>                            
+                                    <image src="@load(vm.mhs.bebasBau eq true ? vm.imgDisetujuiUrl:vm.imgDitolakUrl))"/>
+                                    <image src="@load(vm.mhs.bebasBau eq true ? vm.imgDisetujuiUrl:vm.imgDitolakUrl))"/>
+                                </div>
+                            </row>
+
+                        </rows>
+                    </grid>
+                </hlayout>
+            </groupbox>
+
+
+            <groupbox hflex="1" mold="3d" >
+                <caption >
+                    <div align="left">
+                        <label value=":: KARTU RENCANA STUDI" />                        
+                        <label value=" (" />                        
+                        <label value="@load(vm.krsHeaders.idKrs)" />                        
+                        <label value=" )" />                        
+                   </div>     
+                </caption>
+               
+                    <hlayout visible="@load(vm.granted)">
+                        <div hflex="1" />
+                        <listbox   hflex="20" model="@load(vm.listKrsDetails)"  
+                            selectedItem="@load(vm.krsDetails) @save(vm.krsDetails)" onSelect="@command('selectList')" 
+                            mold="paging" pageSize="7" pagingPosition="top"  >
+                                <auxhead>
+                                    <auxheader colspan="5"><div align="center">Mata Kuliah Yang Dipilih</div> </auxheader>
+                                    <auxheader  ><div align="center">BATAL</div> </auxheader>
+                                    <auxheader colspan="3" ><div align="center">PERSETUJUAN</div> </auxheader>
+                                </auxhead>
+
+                                <listhead sizable="true">                                
+                                    <listheader sort="" width="12%"><div align="center">Matkul</div></listheader>
+                                    <listheader sort="" width="35%" ><div align="center">Mata Kuliah</div></listheader>
+                                    <listheader align="center" sort="" width="9%" ><div align="center">SKS</div></listheader>
+                                    <listheader align="center" sort="" width="9%" ><div align="center">SMTR</div></listheader>
+                                    <listheader align="center" width="15%" ><div align="center">Kelas</div></listheader>
+                                    <listheader align="center" width="8%" ><div align="center">Pilihan</div></listheader>
+                                    <listheader align="center" width="8%" ><div align="center">Wali</div></listheader>
+                                    <listheader align="center" width="8%" ><div align="center">Kajur</div></listheader>
+                                    <listheader align="center" width="8%" ><div align="center">BAU</div></listheader>
+                                </listhead>
+                                <template name="model" var="item">
+                                    <listitem disabled="@load(vm.addNew)">
+                                        <listcell ><label value="@load(item.matkul.idMatkul)" /></listcell>
+                                        <listcell><label value="@load(item.matkul.namaMatkul)" /></listcell>
+                                        <listcell><label value="@load(item.matkul.sks)" /></listcell>
+                                        <listcell><label value="@load(item.matkul.semester)" /></listcell>
+                                        <listcell>
+                                            <div visible="@load(vm.krsBuka)">
+                                                <n:a href="#">
+                                                    <label visible="@load(empty item.krsJadwal? 'false':'true')" value = "@load(item.krsJadwal.namaKelas)" onClick="@command('pilihJadwal', parameter1=item)"/>
+                                                    <label visible="@load(empty item.krsJadwal? 'true':'false')" value="Pilih Kelas" onClick="@command('pilihJadwal', parameter1=item)"/>
+                                                </n:a>
+                                            </div>
+                                        </listcell>
+                                        <listcell>  
+                                            <div visible="@load(vm.krsBuka)">
+                                                <button onClick="@command('hapusMatkul', parameter1=item)"
+                                                    image="/widgets/images/navigation/14x14/Erase.png"/>
+                                            </div>   
+                                        </listcell>
+                                        <listcell>                                        
+                                            <image src="@load(empty item.disetujuiWali ? vm.imgTungguPersetujuanUrl :(item.disetujuiWali eq true ? vm.imgDisetujuiUrl:vm.imgDitolakUrl))"/>
+                                        </listcell>
+                                        <listcell>                                        
+                                            <image src="@load(empty item.disetujuiKajur ? vm.imgTungguPersetujuanUrl :(item.disetujuiKajur eq true ? vm.imgDisetujuiUrl:vm.imgDitolakUrl))"/>
+                                        </listcell>
+                                        <listcell>                                        
+                                            <image src="@load(empty item.disetujuiBau ? vm.imgTungguPersetujuanUrl :(item.disetujuiBau eq true ? vm.imgDisetujuiUrl:vm.imgDitolakUrl))"/>
+                                        </listcell>
+                                    </listitem>                              
+                                </template>
+                                <listfoot>
+                                    <listfooter span="2" ><div align="left">Jumlah </div></listfooter>
+                                    <listfooter><div align="center"><label value="@load(vm.jumlahSks)" /></div></listfooter>
+                                    <listfooter></listfooter>
+                                    <listfooter span="2"><div align="center">
+                                        <label value="Max SKS : "/> <label value="@load(vm.maxSks)" />
+                                    </div></listfooter>
+                                    <listfooter span="4"><div align="center">
+                                            <label>IP Semeter Lalu : </label>
+                                            <label value="@load(vm.mhs.ipSemesterLalu)" />
+                                     </div></listfooter>
+                                </listfoot>                                
+                        </listbox>  
+
+                    <div hflex="1" />
+                    </hlayout>
+           </groupbox>       
+           <groupbox hflex="1" mold="3d">
+                <caption label="::Status Komentar atau Pesan" />
+                <hlayout visible="@load(vm.granted eq true)">
+                    <grid hflex="1">
+                        <columns><column></column> </columns>
+                        <rows>
+                            <row>
+                                <hlayout>
+                                    <label value="::Komentar KAJUR::" />
+                                </hlayout>
+                            </row>
+                            <row>
+                                <hlayout>
+                                    <textbox hflex="1" rows="3" value="@load(vm.krsHeaders.komenKajur)" mold="rounded"
+                                        tabindex="4" />                                
+                                    <div hflex="1"/>
+                                </hlayout>                                    
+                            </row>
+                            <row>
+                                <hlayout>
+                                    <label value="Balas Komentar KAJUR" />
+                                </hlayout>
+                            </row>
+                            <row>
+                                <hlayout>
+                                    <textbox hflex="1" rows="3" value="@bind(vm.krsHeaders.komenBalasKajur)" mold="rounded"
+                                        width="50%" tabindex="4" />                                
+                                    <div hflex="1"/>                                
+                                </hlayout>                                    
+                            </row>
+                            <row>
+                                <hlayout>
+                                    <div visible="@load(vm.krsBuka)">
+                                        <button label="POST" onClick="@command('postKomen')"/>
+                                    </div>
+                                </hlayout>
+                            </row>
+                            <row>
+                                <hlayout>
+                                    <label value="::Komentar WALI::" />
+                                </hlayout>
+                            </row>
+                            <row>
+                                <hlayout>
+                                    <textbox hflex="1" rows="3" value="@load(vm.krsHeaders.komenWali)" mold="rounded"
+                                        width="50%" tabindex="4" />                                
+                                    <div hflex="1"/>                                
+                                </hlayout>                                    
+                            </row>
+                            <row>
+                                <hlayout>
+                                    <label value="Balas Komentar WALI" />
+                                </hlayout>
+                            </row>
+                            <row>
+                                <hlayout>
+                                    <textbox hflex="1" rows="3" value="@bind(vm.krsHeaders.komenBalasWali)" mold="rounded"
+                                        width="50%" tabindex="4" />                                
+                                    <div hflex="1"/>                                
+                                </hlayout>                                    
+                            </row>
+                            <row>
+                                <hlayout>
+                                    <div visible="@load(vm.krsBuka)">
+                                        <button label="POST" onClick="@command('postKomen')"/>
+                                     </div>
+                                </hlayout>
+                            </row>  
+
+                        </rows>
+                    </grid>
+                </hlayout>
+           </groupbox> 
+                
+    </vlayout>
+
+    <window width="700px" height="400px" closable="false"
+        position="center,center" action="show:slideDown; hide:slideUp" mode="modal" visible="@load(vm.showPilihJadwal)">
+        <vlayout hflex="1">
+            <grid height="360px" model="@load(vm.listKrsJadwal)"  >
+                <auxhead>
+                    <auxheader colspan="8" label="PILIH JADWAL KULIAH YANG DITAWARKAN" align="center"></auxheader>
+                </auxhead>
+                <auxhead>
+                    <auxheader colspan="8" label="Mata Kuliah : "><label value="@load(vm.lihatJadwalMatkul.idMatkul)" /><label value=" :: " /><label value="@load(vm.lihatJadwalMatkul.namaMatkul)" /> </auxheader>
+                </auxhead>
+                <columns sizable="true">
+                    <column hflex="2" label="Kelas" align="center"/>
+                    <column hflex="5" label="Dosen" align="center" />
+                    <column hflex="2" label="Hari" align="center" />
+                    <column hflex="1" label="Jam Mulai" align="center"/>
+                    <column hflex="1" label="Jam Selesai" align="center" />
+                    <column hflex="1" label="Kuota" align="center" />
+                    <column hflex="1" label="Terisi" align="center" />
+                    <column hflex="1" label="Pilih" align="center" />
+                </columns>
+                <rows>
+                    <template name="model" var="item">
+                    <row>
+                        <label value="@load(item.namaKelas)" />
+                        <label value="@load(item.pegawai.namaPegawai)" />
+                        <label value="@load(item.hari eq 0? 'Minggu': item.hari eq 1 ? 'Senin': item.hari eq 2? 'Selasa':item.hari eq 3? 'Rabo': item.hari eq 4? 'Kamis':item.hari eq 4? 'Jumat': 'Sabtu')" />
+                        <label value="@load(item.jamMulai.idJam)" />
+                        <label value="@load(item.jamSelesai.idJam)" />
+                        <label value="@load(item.kapasitas)" />
+                        <label value="@load(item.terisi)" />
+                        <div>
+                            <label visible="@load(item.kapasitas eq item.terisi ? 'true':'false')" value="Penuh"/>
+                            <button visible="@load(item.kapasitas eq item.terisi ? 'false':'true')" onClick="@command('pilihJadwalOk', parameter1=item)"
+                                image="/widgets/images/navigation/14x14/OK.png" />
+                        </div>
+                    </row>
+                    </template>
+                </rows>
+            </grid>
+            <button  hflex="1" image="/widgets/images/navigation/16x16/Exit.png" label="Close" onClick="@command('closeJadwal')"/>
+        </vlayout>
+    </window>
+
+    
+    </div>  
+</zk>

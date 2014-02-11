@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <div xmlns:n="native">
+        <hlayout class="top-bar-inner">
+            <n:ul class="ul-top-bar">
+                <n:li class="li-top-bar" ><n:a href="#" class="top-bar-button"> <image src="/widgets/images/navigation/12x12/Application.png"/> <label onClick='menuPop.open(self,"after_end")' value="Setting" class="top-bar-label"/></n:a></n:li>
+                <n:li class="li-top-bar" ><n:a href="#" class="top-bar-button"><image src="/widgets/images/navigation/12x12/Turn-off.png"/>  <label onClick="@command('signOut')" value="Sign-Out" class="top-bar-label"/></n:a></n:li>
+                <n:li class="li-top-bar" ><n:a href="#" class="top-bar-button"><image src="/widgets/images/navigation/12x12/Home.png"/> <label onClick='' value="Home" class="top-bar-label"/></n:a></n:li>
+            </n:ul>
+        </hlayout>
+    
+        <popup id="menuPop" width="200px" class="top-bar-popup" >
+            <div>Tema</div>
+            <div>Konfigurasi</div>
+            <separator style="border:1px"/>
+            <div>Bantuan</div>
+        </popup>
+    </div>
+    
+
+</zk>

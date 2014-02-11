@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <div sclass="page-utama" apply="org.zkoss.bind.BindComposer"
+    viewModel="@id('vm') @init('org.siakad.zkoss.cms.MainMenu')" >    
+        <!--## Bar yang paling atas ##-->
+        <include id="inc-top-bar" vflex="1" sclass="top-bar" src="/widgets/themes/dark-hive/template/top-bar.zul"/>
+        <hlayout width="100%" height="100%"  >
+            <!-- Buat sisi kiri supaya ada space DI NON AKTIFKAN KARENA KITA PAKE MARGIN SAJA
+                    <div hflex="1" />
+                    -->
+            <div hflex="1"/>
+            <div hflex="8" sclass="fixed-center">
+                <!--## Header/Judul ##-->
+                <include id="inc-header" sclass="header" src="/widgets/themes/dark-hive/template/header.zul" />                
+                <include id="inc-header-logo" sclass="header-logo" src="/widgets/themes/dark-hive/template/header-logo.zul" />
+                <include id="inc-main-menu" sclass="main-menu" src="/widgets/themes/dark-hive/template/main-menu.zul" />
+                <!--## Bagian tengan terdiri dari 2 bagian (left menu dan content)##-->
+                <hlayout sclass="center" >
+                    <!--##Left Side Bar##-->
+                    <div  hflex="2" sclass="center-left">
+                        <include id="inc-left-bar" src="/widgets/themes/dark-hive/template/left-bar.zul" sclass="center-left-inner" />
+                    </div>
+                    <!--## content ##-->
+                    <div   hflex="10" sclass="center-right">
+                        <!--
+                        <include id="inc-content" src="/widgets/themes/dark-hive/template/content.zul" sclass="center-right-inner" />
+                        -->
+                        <include id="inc-content" src="@load(vm.cmsContentPageActive)" sclass="center-right-inner" />
+                    </div>
+                </hlayout>
+                <!--## Bar footer ##-->
+                <include id="inc-footer" sclass="footer" src="/widgets/themes/dark-hive/template/footer.zul" />
+            </div>
+            <!-- DI NON AKTIFKAN KARENA KITA PAKE MARGIN SAJA
+                    <div hflex="1" />
+            -->
+            <div hflex="1"/>
+        </hlayout>
+    </div>
+    
+</zk>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('org.siakad.zkoss.Test') ">
+        <grid model="@load(vm.listMhs)">
+            <columns>
+                <column>Nim</column>
+                <column>Nama</column>
+            </columns>
+                <template name="model" var="item">
+                    <row>
+                        <label value="@load(item.nama)" />
+                        <label value="@load(item.alamat)" />
+                    </row>
+                </template>
+        </grid>
+    </div>
+</zk>

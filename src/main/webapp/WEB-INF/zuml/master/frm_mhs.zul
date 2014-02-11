@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <style>
+        .auxhead-1 {
+            font-family: 'Trebuchet MS',Trebuchet;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        /*Buat notifikasi message agar lebih kecil*/
+        .z-notification .z-notification-cl, 
+        .z-notification .z-notification-cnt {
+            height: 60px;
+            width: 140px;
+        }
+    </style>
+    <div apply="org.zkoss.bind.BindComposer" 
+        viewModel="@id('vm') @init('org.siakad.zkoss.master.Mhs')" 
+        validationMessages="@id('vmsgs')"
+        form="@id('fx') @load(vm.mhs) @save(vm.mhs, before='simpan')
+            @validator('org.siakad.zkoss.master.Mhs', tambahBaru=vm.addNew) " >
+
+    <vlayout xmlns:n="native">
+        <div height="10px" />
+    <tabbox hflex="1" id="tb" mold="accordion" selectedIndex ="@bind(vm.selectedTab)">
+        <tabs >
+            <tab label=":: Mahasiswa" />
+            <tab label="::: Daftar Mahasiswa" />
+        </tabs>
+        <tabpanels>
+            <tabpanel>
+        
+                <hlayout>
+                    <grid hflex="1">
+                        <auxhead>
+                            <auxheader colspan="3" align="center" ><label value="Mahasiswa" sclass="auxhead-1"/></auxheader>
+
+                        </auxhead>
+                        <columns>
+                            <column label="Title" width="15%" />
+                            <column label="" width="65%"/>
+                            <column label="" width="20%" />
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="NIM / N.P.M" />
+                                <hlayout>
+                                <textbox value="@bind(fx.idMhs)" readonly="@load(not vm.addNew)" width="150px" mold="rounded" tabindex="1" /> 
+                                   <image src="@load(empty vmsgs['err_kode'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                                   <label class="error_teks" value="@load(vmsgs['err_kode'])" />
+                                   <checkbox label="Status Aktif"  checked="@bind(fx.statusAktif)"/> 
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Nama"/>
+                                <hlayout>
+                                    <textbox value="@bind(fx.namaMhs)" width="150px" mold="rounded" tabindex="2" /> 
+                                    <image src="@load(empty vmsgs['err_deskripsi'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                                    <label class="error_teks" value="@load(vmsgs['err_deskripsi'])" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Jenis Kelamin"/>
+                                <hlayout>
+                                    <radiogroup id="genderRadiogroup" selectedItem="@save(fx.gender)">
+                                        <hlayout>
+                                            <image src="@load(vm.imgMale2Url)" /> 
+                                            <radio id="maleRadio" value="true"  selected="@load(fx.gender)" label="Laki-Laki" />
+                                            <div width="3px" />
+                                            <image src="@load(vm.imgFemale2Url)" /> 
+                                            <radio id="femaleRadio" value="false" selected="@load(not fx.gender)" label="Perempuan" />
+                                        </hlayout>
+                                    </radiogroup>
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Tempat Lahir(City)"/>
+                                <hlayout>
+                                    <textbox value="@bind(fx.birthPlace)" mold="rounded" width="150px" tabindex="2" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Tanggal Lahir"/>
+                                <hlayout>
+                                    <datebox format="dd/MM/yyyy" value="@bind(fx.birthDate)" width="150px"  tabindex="7" mold="rounded"/>
+                                    </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Agama"/>
+                                <hlayout>
+                                    <textbox value="@bind(fx.religion)" mold="rounded" width="150px" tabindex="2" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Status Pernikahan"/>
+                                <hlayout>
+                                    <radiogroup id="marriedRadiogroup" selectedItem="@save(fx.statusNikah)">
+                                        <hlayout>
+                                            <radio id="singleRadio" value="false" label="Belum Menikah" selected="@load(not fx.statusNikah)" />
+                                            <radio id="coupleRadio" value="true" label="Sudah Menikah" selected="@load(fx.statusNikah)" />
+                                        </hlayout>
+                                    </radiogroup>
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Alamat"/>
+                                <hlayout>
+                                    <textbox value="@bind(fx.address1)" mold="rounded" width="150px" tabindex="2" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Kota"/>
+                                <hlayout>
+                                    <textbox value="@bind(fx.city1)" mold="rounded" width="150px" tabindex="2" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Propinsi"/>
+                                <hlayout>
+                                    <textbox value="@bind(fx.state1)" mold="rounded" width="150px" tabindex="2" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Negara"/>
+                                <hlayout>
+                                    <textbox value="@bind(fx.country1)" mold="rounded" width="150px" tabindex="2" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Telepon"/>
+                                <hlayout>
+                                    <textbox value="@bind(fx.phone)" mold="rounded" width="150px" tabindex="2" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="HP"/>
+                                <hlayout>
+                                    <textbox value="@bind(fx.mobile)" mold="rounded" width="150px" tabindex="2" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Alamat E-mail"/>
+                                <hlayout>
+                                    <textbox value="@bind(fx.email)" mold="rounded" width="150px" tabindex="2" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="N.P.W.P"/>
+                                <hlayout>
+                                    <textbox value="@bind(fx.npwp)" mold="rounded" width="150px" tabindex="2" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Tanggal Masuk"/>
+                                <hlayout>
+                                    <datebox format="dd/MM/yyyy" value="@bind(fx.tglMasuk)" width="150px"  tabindex="7" mold="rounded"/>
+                                    </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Tanggal Keluar"/>
+                                <hlayout>
+                                    <datebox format="dd/MM/yyyy" value="@bind(fx.tglKeluar)" width="150px"  tabindex="7" mold="rounded"/>
+                                    </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+                            <row>
+                                <label value="Prodi"/>
+                                <hlayout>
+                <combobox autodrop="true" mold="rounded" width="150px" model="@load(vm.listProdi)" value="@load(fx.prodi.idProdi)"         
+                    selectedItem="@bind(fx.prodi)" >
+                    <template name="model" var="item">
+                        <comboitem label="@load(item.idProdi)" description="@load(item.namaProdi)" />
+                    </template>
+                </combobox>
+                <image src="@load(empty vmsgs['err_combo1'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                <label class="error_teks" value="@load(vmsgs['err_combo1'])" />
+                
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+                            <row>
+                                <label value="Angkatan"/>
+                                <hlayout>
+                                    <spinner constraint="no negative,no zero" value="@bind(fx.angkatan)" width="150px" mold="rounded" tabindex="2" /> 
+                                    <image src="@load(empty vmsgs['err_angkatan'] ? (vm.resetInputIcon ? vm.imgFavouritesUrl:vm.imgOkUrl) : vm.imgErrorUrl)"/>
+                                    <label class="error_teks" value="@load(vmsgs['err_angkatan'])" />
+                                </hlayout>
+                                <div>
+                                    <label sclass="hightlight"></label>
+                                </div>
+                            </row>
+
+
+                        </rows>
+                        
+                        <foot>
+                            <footer span="3" align="center">
+                                <div>
+                                    <button label="Add New"  onClick="@command('baru')" tabindex="4" image="/widgets/images/navigation/16x16/New-document.png" />
+                                    <button label="Delete" onClick="@command('hapus', parDummy='')" tabindex="5" image="/widgets/images/navigation/16x16/Erase.png"/>                            
+                                    <label value=" | "></label>
+                                    <button label="Save or Update" onClick="@command('simpan')" tabindex="6" image="/widgets/images/navigation/16x16/Save.png"/>                            
+                                    <button label="Cancel" onClick="@command('batal')" tabindex="7" image="/widgets/images/navigation/16x16/Redo.png"/>                            
+                                    <label value=" | "></label>
+                                    <button label="Close" onClick="@command('selesai')" tabindex="8" image="/widgets/images/navigation/16x16/Exit.png"/>                            
+                                </div>                                
+                            </footer>
+                        </foot>
+                        
+                    </grid>   
+                </hlayout>
+            </tabpanel>
+            <tabpanel >
+                <hlayout>
+                    <listbox  hflex="1" model="@load(vm.listMhs)"  
+                        selectedItem="@load(vm.mhs) @save(vm.mhs)" onSelect="@command('selectList')"
+                        mold="paging" pageSize="9" pagingPosition="top">
+                            <auxhead>
+                                <auxheader><div align="center"><bandbox value="@bind(vm.cariMhs.idMhs)" hflex="1" mold="rounded" onOK="@command('cari')" onOpen="@command('cari')" /></div></auxheader>
+                                <auxheader><div align="center"><bandbox value="@bind(vm.cariMhs.namaMhs)"  hflex="1" mold="rounded" onOK="@command('cari')" onOpen="@command('cari')" /></div></auxheader>
+                                <auxheader></auxheader>
+                                <auxheader><div align="center"><bandbox value="@bind(vm.cariProdi.idProdi)" hflex="1" mold="rounded" onOK="@command('cari')" onOpen="@command('cari')" /></div></auxheader>
+                                <auxheader><div align="center"><bandbox value="@bind(vm.cariMhs.angkatan)" hflex="1" mold="rounded" onOK="@command('cari')" onOpen="@command('cari')" /></div></auxheader>
+                                <auxheader><div align="center">
+                                    <button label="" onClick="@command('reload')" tabindex="8" image="/widgets/images/navigation/16x16/Sync.png"/>                                                                
+                                </div></auxheader>
+                            </auxhead>
+                            <listhead sizable="true">                                
+                                <listheader sort="auto(idMhs)" width="15%"><div align="center">NIM</div></listheader>
+                                <listheader sort="auto(namaMhs)" width="35%" ><div align="center">NAMA</div></listheader>
+                                <listheader sort="auto(statusAktif)" width="7%" ><div align="center">Aktif</div></listheader>
+                                <listheader sort="auto(prodi.idProdi)" width="25%" ><div align="center">Prodi</div></listheader>
+                                <listheader sort="auto(angkatan)" width="15%" ><div align="center">Angkatan</div></listheader>
+                                <listheader  align="center"  width="15%">
+                                    <button label="Add New" onClick="@command('baru')" image="/widgets/images/navigation/14x14/Create.png"/> 
+                                </listheader>
+                            </listhead>
+                            <template name="model" var="item">
+                                <listitem disabled="@load(vm.addNew)">
+                                    <listcell ><label value="@load(item.idMhs)" /></listcell>
+                                    <listcell>
+                                            <image src="@load(not empty item.gender ? (item.gender ? vm.imgMaleUrl: vm.imgFemaleUrl):vm.imgFemaleUrl)"/>
+                                            <label value="@load(item.namaMhs)" />
+                                    </listcell>
+                                    <listcell>
+                                        <image src="@load(item.statusAktif ? vm.imgAktifUrl: vm.imgNonAktifUrl)"/>
+                                    </listcell>
+                                    <listcell >
+                                        <label value="@load(item.prodi.idProdi)" />
+                                        <label value=" - " />
+                                        <label value="@load(item.prodi.namaProdi)" />
+                                    </listcell>
+                                    <listcell ><label value="@load(item.angkatan)" /></listcell>
+                                    <listcell>
+                                        
+                                        <button onClick="@command('ubahList', parameter1=item)"
+                                            image="/widgets/images/navigation/14x14/Pencil.png"/>
+                                        <button onClick="@command('hapus', parameter1=item)" 
+                                            image="/widgets/images/navigation/14x14/Erase.png"/>
+                                        </listcell>
+                                </listitem>
+                            </template>
+                    </listbox>
+
+                    
+                </hlayout>
+
+            </tabpanel>
+        </tabpanels>
+    </tabbox>
+    
+    
+    
+    </vlayout>
+   
+   
+</div>
+</zk>

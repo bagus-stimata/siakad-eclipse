@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <div apply="org.zkoss.bind.BindComposer" 
+    viewModel="@id('vm') @init('org.siakad.zkoss.cms.MainMenu') ">
+        <include id="inc-style" src="/widgets/themes/dark-hive-unmer/style/style-dark-hive.zul"/>
+        <include id="inc-template" src="/widgets/themes/dark-hive-unmer/template/template-dark-hive.zul" />
+    </div>
+</zk>

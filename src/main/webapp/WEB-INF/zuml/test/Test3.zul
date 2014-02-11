@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <vlayout>
+        <!--Ngakali agar menurun dikit dan judulnya tetap kelihatan-->
+        <div height="4px"></div>
+        
+        <a class="content-title" label="Ini Adalah Tes 3" href="#" target="_zkdemo" />
+        <label class="content-date" value="Tanggal Test 3" />
+        <label class="content-desc">
+            <attribute name="value">
+               Test 3 Bos
+            </attribute>
+        </label>
+    </vlayout>
+
+
+</zk>
