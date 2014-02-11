@@ -6,6 +6,9 @@ package org.siakad.zkoss;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javassist.bytecode.stackmap.BasicBlock.Catch;
+
 import org.config.ApplicationContextProvider;
 import org.config.spring.hibernate.dao.CmsMenuDaoInter;
 import org.config.spring.hibernate.dao.CmsUserMenuDaoInter;
@@ -20,9 +23,10 @@ import org.zkoss.bind.annotation.Init;
  * @author bagus
  */
 public class Test {
-//    ApplicationContext appContext = ApplicationContextProvider.getInstance().getApplicationContext();
-//    MahasiswaDao mhsDao = (MahasiswaDao) appContext.getBean("MahasiswaDaoBean");
 	
+		ApplicationContext appContext = ApplicationContextProvider.getInstance().getApplicationContext();
+//	    MahasiswaDao mhsDao = (MahasiswaDao) appContext.getBean("MahasiswaDaoBean");
+	    
     List<Mahasiswa> listMhs = new ArrayList<Mahasiswa>();
             
     @Init

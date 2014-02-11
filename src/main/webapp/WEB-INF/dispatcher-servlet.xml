@@ -21,6 +21,12 @@
                 <prop key="index2.htm">indexController2</prop>
                 <prop key="test2.htm">testController2</prop>
                 
+           <prop key="test.htm">testController</prop>
+                
+           <!-- UserOtentikasi and Sign In -->
+           <prop key="index.htm">indexController</prop>
+           <prop key="login.htm">signInController</prop>
+                
              </props>
         </property>
     </bean>
@@ -39,7 +45,15 @@
     <bean name="testController2" class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="/test2" />
     
+    <!-- User Otentikasi and Sign In -->
+    <bean name="signInController" class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="/zkoss_cms/login" />
     
-    
+    <!-- Communication in the page-->
+    <bean name="indexController" class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="/zkoss_cms/main_page" />
+    <bean name="testController" class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="/administration/frm_user_manager" />
+
     
  </beans>
