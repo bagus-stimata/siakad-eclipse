@@ -20,8 +20,9 @@ import org.zkoss.bind.annotation.Init;
  * @author bagus
  */
 public class Test {
-    ApplicationContext appContext = ApplicationContextProvider.getInstance().getApplicationContext();
-    MahasiswaDao mhsDao = (MahasiswaDao) appContext.getBean("MahasiswaDaoBean");
+//    ApplicationContext appContext = ApplicationContextProvider.getInstance().getApplicationContext();
+//    MahasiswaDao mhsDao = (MahasiswaDao) appContext.getBean("MahasiswaDaoBean");
+	
     List<Mahasiswa> listMhs = new ArrayList<Mahasiswa>();
             
     @Init
