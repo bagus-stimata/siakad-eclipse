@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+    <!--############################-->
+    <bean id="MahasiswaDaoBean" class="org.config.spring.hibernate.dao.MahasiswaDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>  
+    
+    
+    <!--############################-->
+   
+    <bean id="CmsMenuDaoBean" class="org.config.spring.hibernate.dao.CmsMenuDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="CmsSubmenuDaoBean" class="org.config.spring.hibernate.dao.CmsSubMenuDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="CmsThemesDaoBean" class="org.config.spring.hibernate.dao.CmsThemesDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+
+    <bean id="CmsUsersDaoBean" class="org.config.spring.hibernate.dao.CmsUsersDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+   
+    <bean id="CmsUserMenuDaoBean" class="org.config.spring.hibernate.dao.CmsUserMenuDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>
+    <bean id="CmsUserSubmenuDaoBean" class="org.config.spring.hibernate.dao.CmsUserSubmenuDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    
+    <!-- Master -->
+    <bean id="MatkulDaoBean" class="org.config.spring.hibernate.dao.MatkulDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="MatkulKelDaoBean" class="org.config.spring.hibernate.dao.MatkulKelDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="MatkulKurDaoBean" class="org.config.spring.hibernate.dao.MatkulKurDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="FakultasDaoBean" class="org.config.spring.hibernate.dao.FakultasDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="JurusanDaoBean" class="org.config.spring.hibernate.dao.JurusanDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="ProdiDaoBean" class="org.config.spring.hibernate.dao.ProdiDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>      
+    
+    <bean id="MhsDaoBean" class="org.config.spring.hibernate.dao.MhsDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+   
+    <bean id="PegawaiDaoBean" class="org.config.spring.hibernate.dao.PegawaiDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="PegawaiGolDaoBean" class="org.config.spring.hibernate.dao.PegawaiGolDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="PegawaiJabDaoBean" class="org.config.spring.hibernate.dao.PegawaiJabDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+
+    <bean id="KuliahJamDaoBean" class="org.config.spring.hibernate.dao.KuliahJamDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="KuliahRuangDaoBean" class="org.config.spring.hibernate.dao.KuliahRuangDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="KrsJadwalDaoBean" class="org.config.spring.hibernate.dao.KrsJadwalDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+
+    <bean id="SysvarDaoBean" class="org.config.spring.hibernate.dao.SysvarDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="KrsHeaderDaoBean" class="org.config.spring.hibernate.dao.KrsHeaderDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+    <bean id="KrsDetailDaoBean" class="org.config.spring.hibernate.dao.KrsDetailDaoImpl">
+         <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>        
+</beans>

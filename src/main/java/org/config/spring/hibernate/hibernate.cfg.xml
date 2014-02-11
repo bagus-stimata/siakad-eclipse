@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/HibernateConfiguration DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!--
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/penjualan_db</property>
+		-->
+		<!--  Jika pake DB2
+		<property name="connection.driver_class">com.ibm.db2.jcc.DB2Driver</property>
+		<property name="connection.url">jdbc:db2://localhost:50000/ebolink</property>
+		-->
+                <!--
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
+		<property name="connection.pool_size">8</property>
+		<property name="show_sql">true</property>
+                -->
+                <!--
+                <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+		-->
+               
+                <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+                <property name="current_session_context_class">thread</property>
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+		<property name="hibernate.hbm2ddl.auto">update</property>		
+                
+                <!-- List of Mapping model XML kedua -->
+                <!--
+                <mapping resource="Barang.hbm.xml"/>
+                <mapping resource="GrupBarang.hbm.xml"/>
+                -->
+                
+                <!-- List Of Mapping Anntotiation Entity Class -->
+                
+                <mapping class="org.config.spring.hibernate.model.Mahasiswa"/>
+                <mapping class="org.config.spring.hibernate.model.Matkul"/>
+                <mapping class="org.config.spring.hibernate.model.Jurusan"/>                
+                <mapping class="org.config.spring.hibernate.model.Krs"/>                
+
+                <!-- List Of Mapping Anntotiation Entity Class -->
+                <mapping class="org.config.spring.hibernate.model.Mahasiswa"/>
+
+                <mapping class="org.config.spring.hibernate.model.CmsThemes"/>
+                <mapping class="org.config.spring.hibernate.model.CmsMenu"/>
+                <mapping class="org.config.spring.hibernate.model.CmsMenuType"/>
+                <mapping class="org.config.spring.hibernate.model.CmsSubmenu"/>
+
+                <mapping class="org.config.spring.hibernate.model.CmsUsers"/>
+                <mapping class="org.config.spring.hibernate.model.CmsUserMenu"/>
+                <mapping class="org.config.spring.hibernate.model.CmsUserSubmenu"/>
+                
+                <!-- Form Master -->
+                <mapping class="org.config.spring.hibernate.model.MPegawai" />
+                <mapping class="org.config.spring.hibernate.model.MMatkulKel" />
+                <mapping class="org.config.spring.hibernate.model.MMatkulKur" />
+                <mapping class="org.config.spring.hibernate.model.MMatkul" />
+                
+                
+                <mapping class="org.config.spring.hibernate.model.MFakultas" />
+                <mapping class="org.config.spring.hibernate.model.MJurusan" />
+                <mapping class="org.config.spring.hibernate.model.MProdi" />
+                <mapping class="org.config.spring.hibernate.model.MMhs" />
+                <mapping class="org.config.spring.hibernate.model.MPegawai" />
+                <mapping class="org.config.spring.hibernate.model.MPegawaiGol" />
+                <mapping class="org.config.spring.hibernate.model.MPegawaiJab" />
+
+                <mapping class="org.config.spring.hibernate.model.MKuliahJam" />
+                <mapping class="org.config.spring.hibernate.model.MKuliahRuang" />
+                
+                <mapping class="org.config.spring.hibernate.model.Sysvar" />
+
+                <mapping class="org.config.spring.hibernate.model.TKrsJadwal" />
+                
+                <mapping class="org.config.spring.hibernate.model.TKrsHeader" />
+                <mapping class="org.config.spring.hibernate.model.TKrsDetail" />
+                
+                
+                 
+	</session-factory>
+</hibernate-configuration>
