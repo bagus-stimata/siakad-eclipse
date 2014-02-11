@@ -49,8 +49,9 @@
 	    <spring.version>2.5.6.SEC03</spring.version>
 	     -->
 	    <spring.version>3.2.5.RELEASE</spring.version>
-	    	 	<org.hibernate.version>3.6.10.Final</org.hibernate.version>
-    	<!-- Define Spring version as a constant -->
+	    <org.hibernate.version>3.6.10.Final</org.hibernate.version>
+		<hsqldb.version>2.3.1</hsqldb.version>    
+	    	<!-- Define Spring version as a constant -->
 	 					
   	</properties>
   	
@@ -236,6 +237,13 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.25</version>
 		</dependency>           
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>${hsqldb.version}</version>
+			<scope>runtime</scope>
+		</dependency>		
+		
 		
  	<!-- Logging-->
     <dependency>
